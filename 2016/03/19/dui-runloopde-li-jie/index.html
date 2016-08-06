@@ -1,237 +1,561 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
+<!doctype html>
+
+
+
   
-  <title>RunLoop的学习 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="http://blog.ibireme.com/2015/05/18/runloop/http://pan.baidu.com/share/link?shareid=4199808433&amp;amp;uk=1847232330基于上面两篇文章总结下:RunLoop内部是一个do while循环,当调用CFRunLoop()时,线程就会一直停留在这个循环里,直到超时或者手动停止,该函数才会返回.RunL">
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="
+- The iOS Development," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="http://blog.ibireme.com/2015/05/18/runloop/http://pan.baidu.com/share/link?shareid=4199808433&amp;amp;uk=1847232330基于上面两篇文章总结下:RunLoop内部是一个do while循环,当调用CFRunLoop()时,线程就会一直停留在这个循环里,直到超时或者手动停止,该函数才会返回.RunL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RunLoop的学习">
 <meta property="og:url" content="http://yoursite.com/2016/03/19/dui-runloopde-li-jie/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Leona's Blog">
 <meta property="og:description" content="http://blog.ibireme.com/2015/05/18/runloop/http://pan.baidu.com/share/link?shareid=4199808433&amp;amp;uk=1847232330基于上面两篇文章总结下:RunLoop内部是一个do while循环,当调用CFRunLoop()时,线程就会一直停留在这个循环里,直到超时或者手动停止,该函数才会返回.RunL">
 <meta property="og:updated_time" content="2016-03-19T10:23:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RunLoop的学习">
 <meta name="twitter:description" content="http://blog.ibireme.com/2015/05/18/runloop/http://pan.baidu.com/share/link?shareid=4199808433&amp;amp;uk=1847232330基于上面两篇文章总结下:RunLoop内部是一个do while循环,当调用CFRunLoop()时,线程就会一直停留在这个循环里,直到超时或者手动停止,该函数才会返回.RunL">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
 
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/19/dui-runloopde-li-jie/"/>
+
+  <title> RunLoop的学习 | Leona's Blog </title>
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-dui-runloopde-li-jie" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/19/dui-runloopde-li-jie/" class="article-date">
-  <time datetime="2016-03-19T10:17:10.000Z" itemprop="datePublished">2016-03-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      RunLoop的学习
-    </h1>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
   
 
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Leona's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                RunLoop的学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-19T18:17:10+08:00" content="2016-03-19">
+              2016-03-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
       
         <div><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external"><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external"><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">http://blog.ibireme.com/2015/05/18/runloop/</a></a></a></div><br><div><a href="http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330" target="_blank" rel="external"><a href="http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330" target="_blank" rel="external"><a href="http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330" target="_blank" rel="external">http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330</a></a></a></div><br><div><br></div><br><div>基于上面两篇文章总结下:</div><br><div><br></div><br><div>RunLoop内部是一个do while循环,当调用CFRunLoop()时,线程就会一直停留在这个循环里,直到超时或者手动停止,该函数才会返回.</div><br><div><br></div><br><div>RunLoop的核心是一个mach_msg(),调用这个函数去接收消息.如果没有收到port消息,内核会将线程置于等待状态,进入休眠时调用的函数是mach_msg().</div><br><div><br></div><br><div><br></div><br><div><span style="color: rgb(255, 38, 0);">为什么要用RunLoop:</span></div><br><div>-&gt;是程序一直运行并接受用户输入</div><br><div>-&gt;决定程序在何时应该处理哪些事件</div><br><div>-&gt;调用解耦(Message Queue)异步回调</div><br><div>-&gt;节省CPU时间</div><br><div>-&gt;网络链接</div><br><div><br></div><br><div><span style="color: rgb(255, 38, 0);">使用到RunLoop:</span></div><br><div>-&gt;NSTimer </div><br><div>-&gt;UIEvent  </div><br><div>-&gt;Autorelease </div><br><div>-&gt;NSDelayedPerforming</div><br><div>-&gt;NSThreadPerformAddition</div><br><div>-&gt;CADisplayLink</div><br><div>-&gt;CATransition</div><br><div>-&gt;CAAnimation</div><br><div>-&gt;Dispatch_get_main_Queue</div><br><div>-&gt;NSURLConnection</div><br><div>-&gt;AFNetWorking</div><br><div>-&gt;NSPort</div><br><div>…</div><br><div> </div><br><div> <span style="color: rgb(255, 38, 0);">CFRunloopMode:</span></div><br><div> -&gt; CFRunLoopSource      </div><br><div>-&gt;  CFRunLoopTimer    </div><br><div>-&gt;  CFRunLoopObserver  </div><br><div><br></div><br><div><span style="color: rgb(255, 38, 0);">CFRunloopTimer</span></div><br><div>用于定时器或者CADisplayLink(和屏幕刷新率一致的定时器</div><br><div><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">{   </span><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">performSelector:afterDelay: 实际上其内部会创建一个 Timer 并添加到当前线程</span></div><br><div><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">    performSelector:onThread:  实际上其会创建一个 Timer 加到对应的线程   </span> <span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;"><span style="background-color: rgb(255, 255, 255);">}</span></span></div><br><div><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;"><span style="background-color: rgb(255, 255, 255);">如果对应线程没有</span></span>RunLoop<span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;"><span style="background-color: rgb(255, 255, 255);">,这块方法会失效.</span></span></div><br><div><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br></span></span></div><br><div><span style="color: rgb(255, 38, 0);">CFRunloopSource</span></div><br><div>source0:只包含一个回调函数,不能主动触发事件,需要手动调用函数唤醒RunLoop(非port)</div><br><div>source1:包含mach_port和一个回调函数指针,用于内核和其他线程相互发送消息.可以主动唤醒RunLoop(基于port)</div><br><div><br></div><br><div><span style="color: rgb(255, 38, 0);">CFRunloopObserver</span></div><br><div>observer观察者,每个observer都包含一个回调,主要观察RunLoop的状态,向外部报告RunLoop的当前状态更改</div><br><div><br></div><br><div><br></div><br><div><span style="font-size: 18px;"><span style="color: rgb(148, 33, 146);">1.线程与RunLoop</span></span></div><br><div>线程与RunLoop是一一对应的,保存在一个全局的字典里,key是pthread_t, Value是CFRunLoopRef.线程刚创建时,没有RunLoop,如果不主动获取,那么一直都不会有.RunLoop的创建是发生在第一次获取时,RunLoop的销毁也是发生在线程结束时.除了主线程,只能在一个线程的内部获取RunLoop.</div><br><div><br></div><br><div><span style="color: rgb(148, 33, 146);"><span style="font-size: 18px;">2.GCD和RunLoop</span></span></div><br><div>协作关系,dispatch到主线程会唤醒RunLoop,只是局限于get_main_Queue</div><br><div><br></div><br><div><span style="color: rgb(148, 33, 146);"><span style="font-size: 18px;">3.AutoreleasePool与RunLoop</span></span></div><br><div>UIKit通过对RunloopObserver在RunLoop准备进入休眠间对AutoreleasePool进行Pop和Push释放旧池,并创建新池,Exit(退出RunLoop时)再用pop释放自动释放池(这个优先级比较低,保证发生在其他回调之后)</div><br><div><br></div><br><div><span style="font-size: 18px;"><span style="color: rgb(148, 33, 146);">4.AFNetworking与RunLoop</span></span></div><br><div>AFNetworking在[ RunLoop run ]之前先创建了一个新的NSMachPort添加进去,调用者需要持有这个NSMachPort并在外部线程通过这个port发送消息到loop内,但此处addPort是为了不让RunLoop退出.</div><br><div><br></div><br><div><span style="font-size: 18px;"><span style="color: rgb(148, 33, 146);">5.NSURLConnection与RunLoop</span></span></div><br><div>通过基于Mach_port的Source接收来自底层CFSocket的通知.收到通知后,会等Source0发送通知,同时唤醒Delegate线程的RunLoop处理这些通知.<span style="color: rgb(29, 29, 29); font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">CFMultiplexerSource</span>对Delegate执行实际的回调.</div><br><div><br></div><br><div><br></div>
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/19/dui-runloopde-li-jie/" data-id="cirjbqvmq000677reha7d3250" class="article-share-link">Share</a>
+
+    <div>
       
+        
+
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/The-iOS-Development/">
-- The iOS Development</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/03/20/zhi-hui-shu-01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          智慧书       - 01
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/03/15/ioskai-fa-chang-yong-di-san-fang-lei-ku/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">iOS开发常用第三方类库</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/About-Job/">
-- About Job</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/About-Production/">
-- About Production</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Daily-Life/">
-- Daily Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reading-Books/">
-- Reading Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rose-s-Quotation/">
-- Rose's Quotation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-iOS-Development/">
-- The iOS Development</a></li></ul>
     </div>
-  </div>
 
+    <div>
+      
+        
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/About-Job/" style="font-size: 10px;">
-- About Job</a> <a href="/tags/About-Production/" style="font-size: 15px;">
-- About Production</a> <a href="/tags/Daily-Life/" style="font-size: 15px;">
-- Daily Life</a> <a href="/tags/Reading-Books/" style="font-size: 10px;">
-- Reading Books</a> <a href="/tags/Rose-s-Quotation/" style="font-size: 10px;">
-- Rose's Quotation</a> <a href="/tags/The-iOS-Development/" style="font-size: 20px;">
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/The-iOS-Development/" rel="tag">#
 - The iOS Development</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/15/ioskai-fa-chang-yong-di-san-fang-lei-ku/" rel="next" title="iOS开发常用第三方类库">
+                <i class="fa fa-chevron-left"></i> iOS开发常用第三方类库
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/20/zhi-hui-shu-01/" rel="prev" title="智慧书       - 01">
+                智慧书       - 01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
     </div>
   </div>
 
-  
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li></ul>
-    </div>
   </div>
 
 
+        </div>
+        
+          
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2016/08/06/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/29/encourage-good-coding/">Encourage Good Coding habits</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/20/zhi-hui-shu-01/">智慧书       - 01</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/19/dui-runloopde-li-jie/">RunLoop的学习</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/15/ioskai-fa-chang-yong-di-san-fang-lei-ku/">iOS开发常用第三方类库</a>
-          </li>
-        
-      </ul>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
 
-  
-</aside>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Leona" />
+          <p class="site-author-name" itemprop="name">Leona</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
         
       </div>
-      <footer id="footer">
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leona</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
     </div>
   </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
+
   
-    <a href="/" class="mobile-nav-link">Home</a>
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+
+
+
   
-</nav>
-    
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  
 
 
-<script src="/js/script.js"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
 
-  </div>
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
