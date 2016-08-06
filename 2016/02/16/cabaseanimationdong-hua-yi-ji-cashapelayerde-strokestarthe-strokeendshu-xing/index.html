@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CABaseAnimation动画以及CAShapeLayer的strokeStart和strokeEnd属性 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CABasicAnimation的使用
+当你创建一个 CABasicAnimation 时,你需要通过-setFromValue 和-setToValue 来指定一个开始值和结束值。 当你增加基础动画到层中的时候,它开始运行。
+Autoreverses
+当你设定这个属性为 YES 时,在它到达目的地之后,动画的返回到开始的值,代替了直接跳转到 开始的值。
+DurationDuration 这个参数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CABaseAnimation动画以及CAShapeLayer的strokeStart和strokeEnd属性">
+<meta property="og:url" content="http://yoursite.com/2016/02/16/cabaseanimationdong-hua-yi-ji-cashapelayerde-strokestarthe-strokeendshu-xing/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CABasicAnimation的使用
+当你创建一个 CABasicAnimation 时,你需要通过-setFromValue 和-setToValue 来指定一个开始值和结束值。 当你增加基础动画到层中的时候,它开始运行。
+Autoreverses
+当你设定这个属性为 YES 时,在它到达目的地之后,动画的返回到开始的值,代替了直接跳转到 开始的值。
+DurationDuration 这个参数">
+<meta property="og:updated_time" content="2016-02-17T01:19:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CABaseAnimation动画以及CAShapeLayer的strokeStart和strokeEnd属性">
+<meta name="twitter:description" content="CABasicAnimation的使用
+当你创建一个 CABasicAnimation 时,你需要通过-setFromValue 和-setToValue 来指定一个开始值和结束值。 当你增加基础动画到层中的时候,它开始运行。
+Autoreverses
+当你设定这个属性为 YES 时,在它到达目的地之后,动画的返回到开始的值,代替了直接跳转到 开始的值。
+DurationDuration 这个参数">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-cabaseanimationdong-hua-yi-ji-cashapelayerde-strokestarthe-strokeendshu-xing" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/16/cabaseanimationdong-hua-yi-ji-cashapelayerde-strokestarthe-strokeendshu-xing/" class="article-date">
+  <time datetime="2016-02-16T07:51:54.000Z" itemprop="datePublished">2016-02-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CABaseAnimation动画以及CAShapeLayer的strokeStart和strokeEnd属性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CABasicAnimation的使用</p>
+<p>当你创建一个 CABasicAnimation 时,你需要通过-setFromValue 和-setToValue 来指定一个开始值和结束值。 当你增加基础动画到层中的时候,它开始运行。</p>
+<p>Autoreverses</p>
+<p>当你设定这个属性为 YES 时,在它到达目的地之后,动画的返回到开始的值,代替了直接跳转到 开始的值。</p>
+<p>Duration<br>Duration 这个参数你已经相当熟悉了。它设定开始值到结束值花费的时间。期间会被速度的属性所影响。</p>
+<p>RemovedOnCompletion<br>这个属性默认为 YES,那意味着,在指定的时间段完成后,动画就自动的从层上移除了。这个一般不用。</p>
+<p>假如你想要再次用这个动画时,你需要设定这个属性为 NO。这样的话,下次你在通过-set 方法设定动画的属 性时,它将再次使用你的动画,而非默认的动画。</p>
+<p>Speed</p>
+<p>默认的值为 1.0.这意味着动画播放按照默认的速度。如果你改变这个值为 2.0,动画会用 2 倍的速度播放。 这样的影响就是使持续时间减半。如果你指定的持续时间为 6 秒,速度为 2.0,动画就会播放 3 秒钟—一半的 持续时间。</p>
+<p>BeginTime</p>
+<p>这个属性在组动画中很有用。它根据父动画组的持续时间,指定了开始播放动画的时间。默认的是 0.0.组 动画在下个段落中讨论“Animation Grouping”。</p>
+<p>TimeOffset</p>
+<p>如果一个时间偏移量是被设定,动画不会真正的可见,直到根据父动画组中的执行时间得到的时间都流逝 了。</p>
+<p>RepeatCount</p>
+<p>默认的是 0,意味着动画只会播放一次。如果指定一个无限大的重复次数,使用 1e100f。这个不应该和 repeatDration 属性一块使用。</p>
+<p>RepeatDuration</p>
+<p>这个属性指定了动画应该被重复多久。动画会一直重复,直到设定的时间流逝完。它不应该和 repeatCount 一起使用</p>
+<p>CAShapeLayer的strokeStart和strokeEnd属性</p>
+<p> 1 keyPath = strokeStart  动画的fromValue = 0，toValue = 1</p>
+<pre><code>表示从路径的0位置画到1 怎么画是按照清除开始的位置也就是清除0 一直清除到1 效果就是一条路径慢慢的消失
+
+2 keyPath = strokeStart  动画的fromValue = 1，toValue = 0
+
+表示从路径的1位置画到0 怎么画是按照清除开始的位置也就是1 这样开始的路径是空的（即都被清除掉了）一直清除到0 效果就是一条路径被反方向画出来
+
+3 keyPath = strokeEnd  动画的fromValue = 0，toValue = 1
+
+表示 这里我们分3个点说明动画的顺序  strokeEnd从结尾开始清除 首先整条路径先清除后2/3，接着清除1/3 效果就是正方向画出路径
+
+3 keyPath = strokeEnd  动画的fromValue = 1，toValue = 0
+
+效果就是反方向路径慢慢消失
+</code></pre><p>注释： 动画的0-1（fromValue = 0，toValue = 1） 或1-0 （fromValue = 1，toValue = 0） 表示执行的方向 和路径的范围。</p>
+<p>  CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@”strokeEnd”];<br>    pathAnimation.duration = 1.5;<br>    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];<br>    pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];<br>    pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];<br>    pathAnimation.autoreverses = NO;<br>    [_chartLine addAnimation:pathAnimation forKey:@”strokeEndAnimation”];<br>       _chartLine.strokeEnd = 2.0;</p>
+<p><a href="http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/" target="_blank" rel="external">http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/02/16/cabaseanimationdong-hua-yi-ji-cashapelayerde-strokestarthe-strokeendshu-xing/" data-id="cirjbqvmm000377re10d2qh61" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/The-iOS-Development/">
+- The iOS Development</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/15/ioskai-fa-chang-yong-di-san-fang-lei-ku/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          iOS开发常用第三方类库
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/02/16/uidynamic-z-gu/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">UIDynamic 之力学动画</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/About-Job/">
+- About Job</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/About-Production/">
+- About Production</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Daily-Life/">
+- Daily Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reading-Books/">
+- Reading Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rose-s-Quotation/">
+- Rose's Quotation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-iOS-Development/">
+- The iOS Development</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/About-Job/" style="font-size: 10px;">
+- About Job</a> <a href="/tags/About-Production/" style="font-size: 15px;">
+- About Production</a> <a href="/tags/Daily-Life/" style="font-size: 15px;">
+- Daily Life</a> <a href="/tags/Reading-Books/" style="font-size: 10px;">
+- Reading Books</a> <a href="/tags/Rose-s-Quotation/" style="font-size: 10px;">
+- Rose's Quotation</a> <a href="/tags/The-iOS-Development/" style="font-size: 20px;">
+- The iOS Development</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/06/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/29/encourage-good-coding/">Encourage Good Coding habits</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/20/zhi-hui-shu-01/">智慧书       - 01</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/19/dui-runloopde-li-jie/">RunLoop的学习</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/15/ioskai-fa-chang-yong-di-san-fang-lei-ku/">iOS开发常用第三方类库</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
