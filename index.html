@@ -279,477 +279,21 @@
       
         
           
-            <p> @Famulei.</p>
-<p>强制采用一套严格的技术标准并不是一个好主意，但是标准对于团队组织非常有用，因为标准有助于减少项目中随意出现的诸多分歧。如果你的团队反对采用严格的标准，那么可以考虑一些其他的选择，如灵活的指导原则、一些建议，或者一组能够表现最佳实践的例子。</p>
-<p>##命名规则</p>
-<blockquote>
-<p>为什么要有规则</p>
-</blockquote>
-<ul>
-<li>要求你更多的按规矩行事</li>
-<li>有助于在项目之间传递知识</li>
-<li>有助于你在新项目里更快速的学习代码</li>
-<li>弥补编程语言的不足之处</li>
-<li>强调相关变量之间的关系</li>
-</ul>
-<blockquote>
-<p>何时采用命名规则</p>
-</blockquote>
-<ul>
-<li>当多个程序员合作开发一个项目</li>
-<li>当你计划把一个程序转交给另一位程序员来修改和维护的时候（这种情况总是会发生）</li>
-<li>当你所在的组织中的其他程序员评估你写的程序的时候</li>
-<li>当你写的程序规模太大，以至于无法再脑海里同时了解事情的全貌，而必须分而治之的时候</li>
-<li>当你写的程序生命周期足够长，长到你可能会把它搁置几个星期或者几个月之后又重新启动有关该程序的工作时</li>
-<li>当在一个项目中存在一些不常见的术语，并且你希望在编写代码阶段使用标准的术语或者缩写的时候</li>
-</ul>
-<blockquote>
-<p>类名</p>
-</blockquote>
-<ul>
-<li>类名应包含一个明确描述该类（或类的对象）是什么或做什么的名词</li>
-<li>前缀两个字母或三个字母大写（推荐）</li>
-<li>使用 @private，@protected 显式限定实例变量的访问权限</li>
-</ul>
-<blockquote>
-<p>协议</p>
-</blockquote>
-<ul>
-<li>使用weak修饰, 使用assgin修饰可能会造成野指针</li>
-<li>协议有两个修饰符 @optional 和@required, 默认是@required状态，没有实现@required状态的代理方法会出现黄色警告,没有别的影响</li>
-<li><p>@optional 和@required, 在调用代理方法时都需要做个判断,否则会导致崩溃</p>
-<pre><code>if ([self.cell.delegate respondsToSelector:@selector(cell:didClickImageAtIndex:withLongPress:)]) {
-     [self.cell.delegate cell:self.cell didClickImageAtIndex:index withLongPress:NO];
- }
-</code></pre></li>
-</ul>
-<blockquote>
-<p>Variable Names 变量名</p>
-</blockquote>
-<p>   你可不能像给狗取名字哪有给变量名，仅仅因为它可爱或者听上去不错。变量和变量名就本质而言是同一食物。变量的好与坏很大程度上取决于它命名的好坏。在给变量命名的时候请谨慎小心。</p>
-<pre><code>eg： 
-   v      vs    headView
-  mlbl    vs    nameLabel
-  VC1     vs    registerViewController
-</code></pre><p>   从上述的例子比较看出，一个好的变量名是可读的，易记的和具有描述性的。</p>
-<h4 id="变量命名时最重要的考虑事项"><a href="#变量命名时最重要的考虑事项" class="headerlink" title="变量命名时最重要的考虑事项 :"></a>变量命名时最重要的考虑事项 :</h4><pre><code>该名字要完全，准确地描述出该变量所代表的事物。通常对变量的描述
-就是最佳的变量名。这种名字容易阅读，因为其中并不包含晦涩的缩写，
-同时也有歧义，因为它是对该事物的完整描述，不会和其他事物混淆，
-因此也容易记忆。
-</code></pre><blockquote>
-<p>Const       常量</p>
-</blockquote>
-<p>常量使用由全部大写的多个单词组成的说明型名称，每个单词之间用下划线分隔。声明常量时，要使用Const语句以及常量名、它的数据类型和它的值。</p>
-<p>下面是一些使用常规命名规范的常量名称示例：</p>
-<pre><code>eg： 
-  ACCESS_CONNECTSTRING
-  YY_EXTERN_C_BEGIN
-  API_MAX_STRINGBUFFER 
-</code></pre><p>常量名（如宏定义、枚举、静态局部变量等）推荐参考Apple开发文档命名。以小写字母k开头.官方说法：k表示Const (谁让人家Apple喜欢呢)</p>
-<pre><code> //大家经常看到的
-eg：  
-  kMainScreenWidth
-  kMainScreenHeight
-</code></pre><blockquote>
-<p>我就是想要使用缩写（任性的宝宝）:</p>
-</blockquote>
-<ul>
-<li><p>使用标准的缩写</p>
-<p> eg： msg 是 message， func 是 function</p>
-</li>
-<li><p>确保不要改变变量的含义</p>
-</li>
-<li><p>团队成员可以理解其意义</p>
-<p>eg： Btn 是 Button, Arr 是 Array, Str 是 String, Dic 是 Dictionary</p>
-</li>
-<li><p>缩写要一致</p>
-<p>eg ：Number 或者 Num 或者 Numb, Dictionary 或者 Dic 或者Dict</p>
-</li>
-<li><p>避免使用令人误解的名字或缩写   </p>
-<p>eg: Navigation 使用 nv (阅读者以为是女性的意思)</p>
-</li>
-<li><p>避免在名字中使用数字     </p>
-</li>
-<li><p>避免使用标准类型、变量或者子程序的名字 </p>
-<p>eg： id, true, return</p>
-</li>
-<li><p>不要使用与变量含义完全无关的名字  </p>
-<p>eg: x1 , y2 , m3 ,z4  ( 臣妾真的猜不到 - - )</p>
-</li>
-</ul>
-<h4 id="枚举常量"><a href="#枚举常量" class="headerlink" title="枚举常量"></a>枚举常量</h4><ul>
-<li><p>枚举常量</p>
-<ol>
-<li>使用枚举来定义一组相关的整数常量</li>
-<li>枚举常量与其typedef命名遵循函数命名规则。</li>
-</ol>
-</li>
-<li><p>延伸（非命名规则）</p>
-<pre><code>C语言风格的enum定义枚举类型
+           @Famulei.
+强制采用一套严格的技术标准并不是一个好主意，但是标准对于团队组织非常有用，因为标准有助于减少项目中随意出现的诸多分歧。如果你的团队反对采用严格的标准，那么可以考虑一些其他的选择，如灵活的指导原则、一些建议，或者一组能够表现最佳实践的例子。
+##命名规则
 
- enum {
-      UIViewAnimationTransitionNone,  
-      UIViewAnimationTransitionFlipFromLeft,  
-      UIViewAnimationTransitionFlipFromRight,  
-      UIViewAnimationTransitionCurlUp,  
-      UIViewAnimationTransitionCurlDown,  
-</code></pre></li>
-</ul>
-<pre><code> }   UIViewAnimationTransition; 
+为什么要有规则
 
 
-//位移操作枚举定义  
-enum {  
-     UIViewAutoresizingNone                 = 0,  
-     UIViewAutoresizingFlexibleLeftMargin   = 1 &lt;&lt; 0,  
-     UIViewAutoresizingFlexibleWidth        = 1 &lt;&lt; 1,  
-     UIViewAutoresizingFlexibleRightMargin  = 1 &lt;&lt; 2,  
-     UIViewAutoresizingFlexibleTopMargin    = 1 &lt;&lt; 3,  
-     UIViewAutoresizingFlexibleHeight       = 1 &lt;&lt; 4,  
-     UIViewAutoresizingFlexibleBottomMargin = 1 &lt;&lt; 5  
-};   
-typedef NSUInteger UIViewAutoresizing;
-</code></pre><p>枚举值一般是4个字节的int值，在64位系统上是8个字节。iOS6以后苹果引入了两个宏来重新定义这两个枚举类型，将enum定义和typedef合二为一，并且采用不同的宏来从代码角度来区分。<br>NS_OPTIONS一般用来定义位移相关操作的枚举值。</p>
-<p>  通用情况，推荐使用NS_ENUM。NS_OPTIONS一般用来定义具有位移操作或特点的情况。例如：</p>
-<pre><code>typedef NS_ENUM(NSInteger, UIViewAnimationTransition) {  
-    UIViewAnimationTransitionNone,//默认从0开始  
-    UIViewAnimationTransitionFlipFromLeft,  
-    UIViewAnimationTransitionFlipFromRight,  
-    UIViewAnimationTransitionCurlUp,  
-    UIViewAnimationTransitionCurlDown,  
-};  
+要
+          ...
 
-typedef NS_OPTIONS(NSUInteger, UIViewAutoresizing) {  
-    UIViewAutoresizingNone                 = 0,  
-    UIViewAutoresizingFlexibleLeftMargin   = 1 &lt;&lt; 0,  
-    UIViewAutoresizingFlexibleWidth        = 1 &lt;&lt; 1,  
-    UIViewAutoresizingFlexibleRightMargin  = 1 &lt;&lt; 2,  
-    UIViewAutoresizingFlexibleTopMargin    = 1 &lt;&lt; 3,  
-    UIViewAutoresizingFlexibleHeight       = 1 &lt;&lt; 4,  
-    UIViewAutoresizingFlexibleBottomMargin = 1 &lt;&lt; 5  
-}; 
-</code></pre><blockquote>
-<p>方法命名</p>
-</blockquote>
-<ul>
-<li>描述方法所做的事情</li>
-<li>避免使用无意义、模糊或者标书不清的动词</li>
-<li>对返回值有所描述</li>
-<li>不要传递过多参数（建议限制大约在7个以内）</li>
-<li>把状态、类型、样式或者出错变量放在最后</li>
-</ul>
-<pre><code>eg：
-  - (void)selectItemAtIndexPath:(nullable NSIndexPath *)indexPath 
-                 animated:(BOOL)animated scrollPosition:
-                 (UICollectionViewScrollPosition)scrollPosition;
-
-  - (void)appendPartWithInputStream:(NSInputStream *)inputStream
-                     name:(NSString *)name
-                 fileName:(NSString *)fileName
-                   length:(int64_t)length
-                 mimeType:(NSString *)mimeType;  
-
-  - (NSMutableURLRequest *)requestWithMethod:(NSString *)method
-                URLString:(NSString *)URLString
-               parameters:(id)parameters
-                    error:(NSError * __autoreleasing *)error;
-</code></pre><blockquote>
-<p>准确使用对仗词</p>
-</blockquote>
-<pre><code>add/remove               begin/end           insert/delete
-increment/decrement      show/hide           create/destory
-open/close               lock/unlock         source/target
-first/last               max/min             start/stop
-get/put                  next/previous       up/down
-get/set                  old/new             high/low
-</code></pre><blockquote>
-<p>经典命名规则</p>
-</blockquote>
-<ul>
-<li><p>匈牙利命名法。</p>
-<p>  该命名法是在每个变量名的前面加上若干表示数据类型的字符。<br>  基本原则是：变量名=属性+类型+对象描述。<br>  如i表示int,所有i开头的变量命都表示int类型。<br>  s表示String,所有变量命以s开头的都表示String类型变量。</p>
-</li>
-<li><p>骆驼命名法</p>
-<p>  正如它的名称所表示的那样，是指混合使用大小写字母来构成变量和函数的名字。驼峰命名法跟帕斯卡命名法相似，只是首字母为小写，如userName。因为看上去像驼峰，因此而得名。</p>
-</li>
-<li><p>帕斯卡命名法 即pascal命名法。做法是首字母大写，如UserName,常用在类的变量命名中。</p>
-</li>
-</ul>
-<h2 id="布局与风格"><a href="#布局与风格" class="headerlink" title="布局与风格"></a>布局与风格</h2><p>布局与风格并不影响执行速度、内存使用量等方面程序的布局。编排出色的代码会带来视觉上和思维上的愉悦，这是非程序员的人不能感受到的。如果你做的是合作项目,这块内容还是蛮重要的,尽量统一大家的风格。</p>
-<blockquote>
-<p>好布局有什么用</p>
-</blockquote>
-<ul>
-<li>准确表现代码的逻辑结构</li>
-<li>改善可读性</li>
-<li>经得起修改</li>
-</ul>
-<blockquote>
-<p>布局技术</p>
-</blockquote>
-<ul>
-<li>分组</li>
-</ul>
-<pre><code>eg:     //Method 分组
-#pragma mark - View lifeCycle
-#pragma mark - Getter/Setter
-#pragma mark - Init methods
-#pragma mark - Action methods
-#pragma mark - Common methods
-#pragma mark - UIActionSheetDelegate
-#pragma mark - UIImagePickerControllerDelegate
-#pragma mark - UITableViewDelegate Methods
-#pragma mark - UITableViewDataSource Methods
-#pragma mark - UIScrollViewDelegate Methods
-</code></pre><ul>
-<li>空格</li>
-</ul>
-<pre><code>eg:     //属性
-@property (nonatomic, readonly, strong) NSDictionary *statuCodeToMessageDictionary;
- 1. property 后留空格
- 2. 修饰符“,”后留空格
- 3. 修饰符“()”后留空格
- 4. 所有变量的类名后留空格
- 5. 类型标识符和尖括号内的协议名之间不能有任何空格
- 6. 属性的参数应该按照下面的顺序排列： 原子性-&gt;读写-&gt;内存管理 
-(这些修饰符被修改的可能性从高到底应为：内存管理 &gt; 读写权限 &gt;原子操作)
- 7. 如无特别情况，使用nonatomic修饰，atomic带来的互斥锁特别影响性能。
-
-
-eg:     //方法
-- (void)setAnimatingWithStateOfTask:(NSURLSessionTask *)task;
-1.方法返回值前留空格
-2.方法返回值后不留空格
-3.左括号和方法名在同行并有空格隔开
-4.多个参数的方法换行并以冒号对齐
-</code></pre><ul>
-<li><p>换行</p>
-<pre><code>eg：//method  推荐写法（不完全为了美观）
-- (BOOL)validateResponse:(NSHTTPURLResponse *)response
-                    data:(NSData *)data
-                   error:(NSError *__autoreleasing *)error;
-   //不推荐写法（参数很多的情况，可读性很差）
-- (BOOL)validateResponse:(NSHTTPURLResponse *)response data:(NSData *)data error:(NSError *__autoreleasing *)error;
-</code></pre></li>
-<li><p>缩进</p>
-<pre><code>eg： //常用的字符串(推荐写法)
-
- NSString *string = @&quot;Rose&quot;;
-</code></pre></li>
-</ul>
-<pre><code>   //不推荐写法
-NSString*string=@&quot;Rose&quot;;
-</code></pre><ul>
-<li><p>对齐</p>
-<pre><code>eg: //create UILabel  推荐写法 （组织结构明了，易于修改，可维护性强）
-</code></pre></li>
-</ul>
-<pre><code>    UILabel *testLabel = [[UILabel alloc]init];
-
-    testLabel.frame = CGRectMake(50, 50, 50, 50);
-    testLabel.text = @&quot;The cute Rose&quot;;
-    testLabel.textColor = [UIColor yellowColor];
-
-    [self.view addSubview:testLabel];
-
-
-
-        //不推荐 （凌乱, 臃肿，简直不想看）
-   UILabel*testLabel=[[UILabel alloc]init];
- testLabel.frame=CGRectMake(50, 50, 50, 50);
-   testLabel.text=@&quot;The cute Rose&quot;;
-testLabel.textColor=[UIColor yellowColor];
-       [self.view addSubview:testLabel];
-</code></pre><ul>
-<li><p>其他考虑</p>
-<ol>
-<li>段落之间使用空行</li>
-<li>单语句代码块的格式要前后统一</li>
-<li>对于复杂的表达式，将条件分隔放在多行上</li>
-<li>…</li>
-</ol>
-</li>
-</ul>
-<p>##注释</p>
-<p>对于精心编写的代码而言，注释不过是美丽衣裳上的小饰物而已。注释的种类：</p>
-<pre><code>重复代码
-解释代码
-代码标记
-概述代码
-代码意图说明
-</code></pre><blockquote>
-<p>注释单行或多行</p>
-</blockquote>
-<ul>
-<li>该行代码太复杂，因此需要注释</li>
-<li>该行语句出过错，留个标记</li>
-<li>不要对单行代码做行尾注释</li>
-<li>注释的缩进要与相应代码保持一致</li>
-<li><p>每行注释至少用一个空行隔开</p>
-<pre><code>行尾注释用于数据声明
-避免用行尾注释存放维护注记 （记录修改或者错误编号）
-用行尾注释标记块尾
-</code></pre></li>
-</ul>
-<blockquote>
-<p>注释控制结构</p>
-</blockquote>
-<ul>
-<li>应在每个if、case、循环或者代码段前面加上注释</li>
-<li>应在每个控制结构后加上注释</li>
-<li>注释赢靠近其说明的代码</li>
-<li><p>在声明参数处注释这些参数</p>
-<pre><code>eg：
- /**
-  基本地址URL,接口特殊性需要其他baseURL，可以覆盖此方法 默认为空
-
-  @return 基本地址的URL
-  */ 
-- (NSString *)baseURL;
-</code></pre></li>
-</ul>
-<p>##高质量的子程序</p>
-<blockquote>
-<p>什么是子程序?</p>
-</blockquote>
-<p>子程序是为实现一个特点的目的而编写的一个可被调用的方法（method）或者过程（procedure）。</p>
-<blockquote>
-<p>创建子程序的正当理由</p>
-</blockquote>
-<ul>
-<li>避免代码重复</li>
-<li>支持子类化</li>
-<li>引入中间、易懂的抽象</li>
-<li>隐藏顺序</li>
-<li>隐藏指针操作</li>
-<li>提高可移植性</li>
-<li>改善性能</li>
-<li>确保所有的子程序都很小</li>
-<li>简化复杂的逻辑判断</li>
-</ul>
-<blockquote>
-<p>创建类的很多理由也是创建子程序的理由</p>
-</blockquote>
-<ul>
-<li>隔离复杂度</li>
-<li>隐藏实现细节</li>
-<li>限制变化带来的影响</li>
-<li>隐藏全局数据</li>
-<li>促成可重用的代码</li>
-<li>达到特定的重构目的</li>
-</ul>
-<blockquote>
-<p>子程序设计</p>
-</blockquote>
-<ul>
-<li><p>功能上的内聚性</p>
-<p>是最强也是最好的一种内聚性，让一个子程序仅执行一项操作。</p>
-</li>
-<li><p>顺序上的内聚性</p>
-<p>是指子程序包含有需要按特定书序执行的操作,需要共享数据，而且只有全部执行完毕后才完成一项完整的功能。</p>
-</li>
-<li><p>通信上的内聚性</p>
-<p>是指一个子程序中的不用操作使用了同样的数据，但不存在其他任何联系。</p>
-</li>
-<li><p>临时上的内聚性</p>
-<p>是指含有一些因为需要同时执行才放到一起的操作的子程序。</p>
-</li>
-<li><p>过程上的内聚性</p>
-<p>是指一个子程序的操作是按特定的顺序进行的。</p>
-</li>
-<li><p>逻辑上的内聚性</p>
-<p>是指若干操作被放入同一个子程序中,通过传入的控制标志选择执行其中的一项操作。</p>
-</li>
-<li><p>巧合的内聚性（无内聚性或者混乱内聚性）</p>
-<p>是指子程序中的各个操作之间没有任何可以看到的关联。</p>
-</li>
-</ul>
-<p>##宏定义<br> C语言提供的三种预处理功能的其中一种,分别为：宏定义、文件包括、条件编译。宏定义和操作符区别是：宏定义制作替换,不做计算,也不做表达式求解。</p>
-<ul>
-<li>宏命名一般用大写 </li>
-<li>宏定义末尾不加分号</li>
-<li>使用宏可提高程序的通用性和易读性,减少不一致性减少错误和便于修改</li>
-<li><p>把宏表达式整个包含在括号内</p>
-<pre><code>eg：   // 简单的宏定义
-#define STATUS_BAR_HEIGHT 20
-
-eg：   // 代码块宏定义
-#define ALERT(text) {UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@&quot;提示&quot; message:(text) delegate:nil cancelButtonTitle:@&quot;确定&quot; otherButtonTitles:nil, nil];[alert show];}
-</code></pre></li>
-</ul>
-<p>##断言</p>
-<p>断言是开发期间使用的、让程序在运行时进行自检的代码（通常是一个子程序或者宏）。</p>
-<blockquote>
-<p>建立自己的断言机制</p>
-</blockquote>
-<p>例如YYKit里面：</p>
-<pre><code>#define YYAssertNotNil(condition, description, ...) NSAssert((condition), (description), ##__VA_ARGS__)
-#define YYCAssertNotNil(condition, description, ...) NSCAssert((condition), (description), ##__VA_ARGS__)
-
-#define YYAssertMainThread() NSAssert([NSThread isMainThread], @&quot;This method must be called on the main thread&quot;)
-#define YYCAssertMainThread() NSCAssert([NSThread isMainThread], @&quot;This method must be called on the main thread&quot;)
-</code></pre><blockquote>
-<p>使用断言的建议</p>
-</blockquote>
-<ul>
-<li>用错误处理代码来处理预期会发生的情况，用断言来处理绝不应该发生的状况</li>
-<li>避免把需要执行的代码放到断言里</li>
-<li>用断言来注解并验证前条件和后条件</li>
-<li>对于高健壮性的代码，应该先使用断言再处理错误</li>
-</ul>
-<p>##异常<br>异常时把代码中的错误或异常事件传递给调用方代码的一种特殊手段。</p>
-<ul>
-<li>用异常通知程序的其他部分，发生了不可忽略的错误</li>
-<li>只在真正例外的情况才抛出异常（仅在其他编码实践方法无法解决的情况下才使用异常）</li>
-<li>避免在构造函数和析构函数中抛出异常，除非你在同一地方把它们捕获</li>
-<li>在恰当的抽象层次抛出异常</li>
-<li>在异常消息中加入关于导致异常发生的全部信息</li>
-<li>避免使用空的catch语句</li>
-<li>了解所用函数库可能抛出的异常</li>
-<li>考虑创建一个集中的异常报告机制</li>
-</ul>
-<p>使用@try、catch捕获异常:</p>
-<pre><code>@try {
-     // 可能会出现崩溃的代码
-}
-@catch (NSException *exception) {
-     // 捕获到的异常exception
-}
-@finally {
-     // 结果处理
-}
-</code></pre><p>##警告（视团队需求而定）</p>
-<ul>
-<li>将建议其的警告级别设置为最高级,尽可能不放过任何一个警告，然后修正编译器所报告的全部错误</li>
-<li>用对待错误的态度来处理警告 </li>
-<li>在项目组范围内使用同一的编译设置</li>
-</ul>
-<p>##信仰问题</p>
-<ul>
-<li>缩进风格</li>
-<li>大括号的摆放位置</li>
-<li>所用的继承开发环境</li>
-<li>注释风格</li>
-<li>效率与可读性的取舍</li>
-<li>对方法的选择</li>
-<li>命名习惯</li>
-<li><p>对全局变量的使用</p>
-<p>”特定的标准”的细节往往没有“存在某个标准”重要。我们都在向一个相对标准的规则靠近。没必要在一些编码风格的细节差异上产生斗争。只要清晰明了,对项目没有损失就好。</p>
-</li>
-</ul>
-<p>##个人性格（题外话）</p>
-<ul>
-<li>人的个性对编程能力有直接影响</li>
-<li>最有关系的性格:谦虚、求知欲、诚实、创造性和纪律、以及高明的偷懒。</li>
-<li>很多程序员不愿意朱东海吸收新知识和技术，如何能抽出少量时间阅读和学习编程知识，提升速度很快。</li>
-<li>好性格与培养正确的习惯关系很大,养成良好的编码习惯,其他自然水到渠成。</li>
-</ul>
-<p>  本文参考： </p>
-<p>  小菲菲总结了份规范文档<br>  <a href="http://xuyafei.cn/post/language/cocoadai-ma-feng-ge-zhi-nan-zhi-ming-ming-gui-fan" target="_blank" rel="external">http://xuyafei.cn/post/language/cocoadai-ma-feng-ge-zhi-nan-zhi-ming-ming-gui-fan</a></p>
-<p>  代码大全</p>
-<p> 我们公司正在招聘前端开发工程师和运营,欢迎加入我们的Famulei,坐标上海。   </p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/29/encourage-good-coding/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -841,9 +385,14 @@ eg：   // 代码块宏定义
       
         
           
-            <p>1.发现你内在的力量<br>2.成功要靠自己<br>3.态度决定一切<br>4.我要成为怎样的人,就能成为怎样的人<br>5.自己创造想要的一切<br>6.盯住目标，全神贯注<br>7.打开’上帝’的锦囊<br>8.思想决定行动<br>9.首先改变自己<br>10.凡有因必有果<br>11.不要限定自己的思考能力<br>12.集中你的能量<br>13.没有什么,不能没有梦想<br>14.拒绝负面影响<br>15.洞察力(一种心灵的能力,我们能从长远的角度考虑问题,观察形式)<br>16.把你的理想视觉化<br>17.有渴望、才有希望<br>18.吸引力是左右生活的终极力量<br>19.有知才会无畏<br>20.不愿劳心就得劳力<br>21.大胆提出设想<br>22.改造自己的内心世界<br>23.有舍才有得<br>24.告诉自己你能行</p>
+          1.发现你内在的力量2.成功要靠自己3.态度决定一切4.我要成为怎样的人,就能成为怎样的人5.自己创造想要的一切6.盯住目标，全神贯注7.打开’上帝’的锦囊8.思想决定行动9.首先改变自己10.凡有因必有果11.不要限定自己的思考能力12.集中你的能量13.没有什么,不能没有梦想14.拒绝负面影响1
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/20/zhi-hui-shu-01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -935,9 +484,14 @@ eg：   // 代码块宏定义
       
         
           
-            <div><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external"><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external"><a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">http://blog.ibireme.com/2015/05/18/runloop/</a></a></a></div><br><div><a href="http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330" target="_blank" rel="external"><a href="http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330" target="_blank" rel="external"><a href="http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330" target="_blank" rel="external">http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330</a></a></a></div><br><div><br></div><br><div>基于上面两篇文章总结下:</div><br><div><br></div><br><div>RunLoop内部是一个do while循环,当调用CFRunLoop()时,线程就会一直停留在这个循环里,直到超时或者手动停止,该函数才会返回.</div><br><div><br></div><br><div>RunLoop的核心是一个mach_msg(),调用这个函数去接收消息.如果没有收到port消息,内核会将线程置于等待状态,进入休眠时调用的函数是mach_msg().</div><br><div><br></div><br><div><br></div><br><div><span style="color: rgb(255, 38, 0);">为什么要用RunLoop:</span></div><br><div>-&gt;是程序一直运行并接受用户输入</div><br><div>-&gt;决定程序在何时应该处理哪些事件</div><br><div>-&gt;调用解耦(Message Queue)异步回调</div><br><div>-&gt;节省CPU时间</div><br><div>-&gt;网络链接</div><br><div><br></div><br><div><span style="color: rgb(255, 38, 0);">使用到RunLoop:</span></div><br><div>-&gt;NSTimer </div><br><div>-&gt;UIEvent  </div><br><div>-&gt;Autorelease </div><br><div>-&gt;NSDelayedPerforming</div><br><div>-&gt;NSThreadPerformAddition</div><br><div>-&gt;CADisplayLink</div><br><div>-&gt;CATransition</div><br><div>-&gt;CAAnimation</div><br><div>-&gt;Dispatch_get_main_Queue</div><br><div>-&gt;NSURLConnection</div><br><div>-&gt;AFNetWorking</div><br><div>-&gt;NSPort</div><br><div>…</div><br><div> </div><br><div> <span style="color: rgb(255, 38, 0);">CFRunloopMode:</span></div><br><div> -&gt; CFRunLoopSource      </div><br><div>-&gt;  CFRunLoopTimer    </div><br><div>-&gt;  CFRunLoopObserver  </div><br><div><br></div><br><div><span style="color: rgb(255, 38, 0);">CFRunloopTimer</span></div><br><div>用于定时器或者CADisplayLink(和屏幕刷新率一致的定时器</div><br><div><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">{   </span><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">performSelector:afterDelay: 实际上其内部会创建一个 Timer 并添加到当前线程</span></div><br><div><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">    performSelector:onThread:  实际上其会创建一个 Timer 加到对应的线程   </span> <span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;"><span style="background-color: rgb(255, 255, 255);">}</span></span></div><br><div><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;"><span style="background-color: rgb(255, 255, 255);">如果对应线程没有</span></span>RunLoop<span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;"><span style="background-color: rgb(255, 255, 255);">,这块方法会失效.</span></span></div><br><div><span style="font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif;"><span style="background-color: rgb(255, 255, 255);"><br></span></span></div><br><div><span style="color: rgb(255, 38, 0);">CFRunloopSource</span></div><br><div>source0:只包含一个回调函数,不能主动触发事件,需要手动调用函数唤醒RunLoop(非port)</div><br><div>source1:包含mach_port和一个回调函数指针,用于内核和其他线程相互发送消息.可以主动唤醒RunLoop(基于port)</div><br><div><br></div><br><div><span style="color: rgb(255, 38, 0);">CFRunloopObserver</span></div><br><div>observer观察者,每个observer都包含一个回调,主要观察RunLoop的状态,向外部报告RunLoop的当前状态更改</div><br><div><br></div><br><div><br></div><br><div><span style="font-size: 18px;"><span style="color: rgb(148, 33, 146);">1.线程与RunLoop</span></span></div><br><div>线程与RunLoop是一一对应的,保存在一个全局的字典里,key是pthread_t, Value是CFRunLoopRef.线程刚创建时,没有RunLoop,如果不主动获取,那么一直都不会有.RunLoop的创建是发生在第一次获取时,RunLoop的销毁也是发生在线程结束时.除了主线程,只能在一个线程的内部获取RunLoop.</div><br><div><br></div><br><div><span style="color: rgb(148, 33, 146);"><span style="font-size: 18px;">2.GCD和RunLoop</span></span></div><br><div>协作关系,dispatch到主线程会唤醒RunLoop,只是局限于get_main_Queue</div><br><div><br></div><br><div><span style="color: rgb(148, 33, 146);"><span style="font-size: 18px;">3.AutoreleasePool与RunLoop</span></span></div><br><div>UIKit通过对RunloopObserver在RunLoop准备进入休眠间对AutoreleasePool进行Pop和Push释放旧池,并创建新池,Exit(退出RunLoop时)再用pop释放自动释放池(这个优先级比较低,保证发生在其他回调之后)</div><br><div><br></div><br><div><span style="font-size: 18px;"><span style="color: rgb(148, 33, 146);">4.AFNetworking与RunLoop</span></span></div><br><div>AFNetworking在[ RunLoop run ]之前先创建了一个新的NSMachPort添加进去,调用者需要持有这个NSMachPort并在外部线程通过这个port发送消息到loop内,但此处addPort是为了不让RunLoop退出.</div><br><div><br></div><br><div><span style="font-size: 18px;"><span style="color: rgb(148, 33, 146);">5.NSURLConnection与RunLoop</span></span></div><br><div>通过基于Mach_port的Source接收来自底层CFSocket的通知.收到通知后,会等Source0发送通知,同时唤醒Delegate线程的RunLoop处理这些通知.<span style="color: rgb(29, 29, 29); font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, Verdana, 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Source Han Sans CN', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, sans-serif; font-size: 16px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; background-color: rgb(255, 255, 255);">CFMultiplexerSource</span>对Delegate执行实际的回调.</div><br><div><br></div><br><div><br></div>
+          http://blog.ibireme.com/2015/05/18/runloop/http://pan.baidu.com/share/link?shareid=4199808433&amp;uk=1847232330基于上面两篇文章总结下:RunLoop内部是一个do while循环,当调用C
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/19/dui-runloopde-li-jie/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1029,9 +583,14 @@ eg：   // 代码块宏定义
       
         
           
-            <p>AFNetworking       网络请求组件<br>FMDB               本地数据库组件<br>SDWebImage         多个缩略图缓存组件<br>UICKeyChainStore   存放用户账号密码组件<br>Reachability       监测网络状态<br>DateTools          友好化时间<br>MBProgressHUD      一款提示框第三方库<br>MWPhotoBrowser     一款简单的 iOS 照片浏览控件<br>CTAssetsPickerController 一个选择器组件, 支持从用户的相片库选择多张照片和视频。<br>QBPopupMenu        无需使用图片文件的 iOS 弹出式菜单<br>UAAppReviewManager 一个能够让你方便地将提醒用户评分的功能加入 App 的工具<br>iRate              也是一款让你加入提醒用户评分的工具<br>Mantle             主要用来将 JSON 数据模型化为 Model 对象<br>MTLFMDBAdapter     Mantle 和 FMDB 的转换工具<br>FMDBMigrationManager  支持 iOS SQLite 数据库迁移<br>MagicalRecord         CoreData来做存储数据<br>Bugsnag               集成 Bugsnag 到应用中<br>GVUserDefaults    对 NSUserDefaults 进行了封装, 方便的进行本地化存储操作<br>FCCurrentLocationGeocoder 对用户当前地理位置进行正向地址编码和反向地址编码<br>AFSwipeToHide      页面滚动时隐藏工具栏<br>BaiduTranslate     非官方百度翻译工具<br>JSBadgeView        添加带动画效果的未读消息数提醒<br>Masonry       一个轻量级的布局框架, 用于替换官方的 AutoLayout 写法<br>PureLayout         代码自动布局工具<br>MMPlaceHolder      可在应用中显示视图的尺寸<br>TOWebViewController     可在应用中嵌套 Web 页面<br>ILTranslucentView       半透明试图,高斯模糊试图<br>MJRefresh               下拉刷新，上拉加载更多组件<br>VPImageCropper          用户上传头像组件<br>JCScrollView            快速给应用视图添加滚动分页效果<br>BWTitlePagerView        创建类似 Twitter 的导航栏分页效果<br>CNPPopupController      创建弹出卡片视图<br>FeSpinner               加入沙漏等多种动画加载效果<br>PulsingHalo             涟漪动画效果<br>JMHoledView             方便创建用户引导视图<br>RKNotificationHub       添加未读消息数显示提醒<br>CRToast                 从应用状态栏弹出消息提醒<br>KeychainIDFA        获取 IDFA 标示当设备唯一识别, 并保存到 KeyChain 中<br>DZNEmptyDataSet         为TableView 和 CollectionView 展示空数据视图<br>SwipeView               快速给应用添加上滑动视图<br>FXBlurView              对视图进行模糊操作<br>AreaPicker              省市地理位置选择器<br>MLAudioRecorder     边录边转码, 播放网络音频Button(本地缓存), 实时语音<br>THProgressView      微型加载进度条<br>VPImageCropper      轻松实现微信选取图片并裁剪成头像的控件<br>WCAlertView         对官方Alert View 进行封装, 更加容易使用<br>IQKeyBoardManager   弹起键盘<br>M13ProgressSuite    进度条<br>QRCode              二维码生成器<br>MLEmojilabel        自动识别邮箱和表情的Label<br>DOUAudioStreamer    流媒体播放 音频播放器<br>GIFHUD              gif提示框<br>GPUIImage           图像处理库<br>Diplomat            分享<br>MZTimerLabel        倒计时label<br>TumblrLikeMenu      弹出菜单动画<br>MLKMenuPopver       弹出小型菜单<br>LightMenuBar        选项卡<br>MJExtension         json与model之间的转换</p>
+          AFNetworking       网络请求组件FMDB               本地数据库组件SDWebImage         多个缩略图缓存组件UICKeyChainStore   存放用户账号密码组件Reachability       监测网络状态DateTools        
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/15/ioskai-fa-chang-yong-di-san-fang-lei-ku/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1123,43 +682,17 @@ eg：   // 代码块宏定义
       
         
           
-            <p>CABasicAnimation的使用</p>
-<p>当你创建一个 CABasicAnimation 时,你需要通过-setFromValue 和-setToValue 来指定一个开始值和结束值。 当你增加基础动画到层中的时候,它开始运行。</p>
-<p>Autoreverses</p>
-<p>当你设定这个属性为 YES 时,在它到达目的地之后,动画的返回到开始的值,代替了直接跳转到 开始的值。</p>
-<p>Duration<br>Duration 这个参数你已经相当熟悉了。它设定开始值到结束值花费的时间。期间会被速度的属性所影响。</p>
-<p>RemovedOnCompletion<br>这个属性默认为 YES,那意味着,在指定的时间段完成后,动画就自动的从层上移除了。这个一般不用。</p>
-<p>假如你想要再次用这个动画时,你需要设定这个属性为 NO。这样的话,下次你在通过-set 方法设定动画的属 性时,它将再次使用你的动画,而非默认的动画。</p>
-<p>Speed</p>
-<p>默认的值为 1.0.这意味着动画播放按照默认的速度。如果你改变这个值为 2.0,动画会用 2 倍的速度播放。 这样的影响就是使持续时间减半。如果你指定的持续时间为 6 秒,速度为 2.0,动画就会播放 3 秒钟—一半的 持续时间。</p>
-<p>BeginTime</p>
-<p>这个属性在组动画中很有用。它根据父动画组的持续时间,指定了开始播放动画的时间。默认的是 0.0.组 动画在下个段落中讨论“Animation Grouping”。</p>
-<p>TimeOffset</p>
-<p>如果一个时间偏移量是被设定,动画不会真正的可见,直到根据父动画组中的执行时间得到的时间都流逝 了。</p>
-<p>RepeatCount</p>
-<p>默认的是 0,意味着动画只会播放一次。如果指定一个无限大的重复次数,使用 1e100f。这个不应该和 repeatDration 属性一块使用。</p>
-<p>RepeatDuration</p>
-<p>这个属性指定了动画应该被重复多久。动画会一直重复,直到设定的时间流逝完。它不应该和 repeatCount 一起使用</p>
-<p>CAShapeLayer的strokeStart和strokeEnd属性</p>
-<p> 1 keyPath = strokeStart  动画的fromValue = 0，toValue = 1</p>
-<pre><code>表示从路径的0位置画到1 怎么画是按照清除开始的位置也就是清除0 一直清除到1 效果就是一条路径慢慢的消失
+          CABasicAnimation的使用
+当你创建一个 CABasicAnimation 时,你需要通过-setFromValue 和-setToValue 来指定一个开始值和结束值。 当你增加基础动画到层中的时候,它开始运行。
+Autoreverses
+当你设定这个属性为 YES 时,在它到达目的地
+          ...
 
-2 keyPath = strokeStart  动画的fromValue = 1，toValue = 0
-
-表示从路径的1位置画到0 怎么画是按照清除开始的位置也就是1 这样开始的路径是空的（即都被清除掉了）一直清除到0 效果就是一条路径被反方向画出来
-
-3 keyPath = strokeEnd  动画的fromValue = 0，toValue = 1
-
-表示 这里我们分3个点说明动画的顺序  strokeEnd从结尾开始清除 首先整条路径先清除后2/3，接着清除1/3 效果就是正方向画出路径
-
-3 keyPath = strokeEnd  动画的fromValue = 1，toValue = 0
-
-效果就是反方向路径慢慢消失
-</code></pre><p>注释： 动画的0-1（fromValue = 0，toValue = 1） 或1-0 （fromValue = 1，toValue = 0） 表示执行的方向 和路径的范围。</p>
-<p>  CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@”strokeEnd”];<br>    pathAnimation.duration = 1.5;<br>    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];<br>    pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];<br>    pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];<br>    pathAnimation.autoreverses = NO;<br>    [_chartLine addAnimation:pathAnimation forKey:@”strokeEndAnimation”];<br>       _chartLine.strokeEnd = 2.0;</p>
-<p><a href="http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/" target="_blank" rel="external">http://oleb.net/blog/2010/12/animating-drawing-of-cgpath-with-cashapelayer/</a></p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/16/cabaseanimationdong-hua-yi-ji-cashapelayerde-strokestarthe-strokeendshu-xing/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1251,152 +784,21 @@ eg：   // 代码块宏定义
       
         
           
-            <p>UIDynamic基本认识</p>
-<p>一、简单介绍</p>
-<p>1.什么是UIDynamic?</p>
-<p>UIDynamic是从iOS 7开始引入的一种新技术，隶属于UIKit框架</p>
-<p>可以认为是一种物理引擎，能模拟和仿真现实生活中的物理现象</p>
-<p>如：重力、弹性碰撞等现象</p>
-<p>2.物理引擎的价值</p>
-<p>广泛用于游戏开发，经典成功案例是“愤怒的小鸟”</p>
-<p>让开发人员可以在远离物理学公式的情况下，实现炫酷的物理仿真效果</p>
-<p>提高了游戏开发效率，产生更多优秀好玩的物理仿真游戏</p>
-<p>3.知名的2D物理引擎</p>
-<p>Box2D       是一个用于模拟2D刚体物体的C++引擎</p>
-<p>Box2D不是一种计算机编程语言，不需要又从变量啊、数据类型啊一大堆让人头痛的基础知识学起；也不是一种游戏编程软件，不需要复杂的安装与配置。它是一个强大的开源物理游戏引擎，用来模拟2D刚体物体运动和碰撞，由Erin Catto早在2007年用C++语言开发。<br>Box2D集成了大量的物理力学和运动学的计算，并将物理模拟过程封装到类对象中，将对物体的操作，以简单友好的接口提供给开发者。我们只需要调用引擎中相应的对象或函数，就可以模拟现实生活中的加速、减速、抛物线运动、万有引力、碰撞反弹等等各种真实的物理运动。</p>
-<p>Chipmunk 是一个用C写成的物理引擎</p>
-<p>二、使用步骤</p>
-<p>要想使用UIDynamic来实现物理仿真效果，大致的步骤如下</p>
-<p>（1）创建一个物理仿真器（顺便设置仿真范围）</p>
-<p>（2）创建相应的物理仿真行为（顺便添加物理仿真元素）</p>
-<p>（3）将物理仿真行为添加到物理仿真器中  开始仿真</p>
-<p>三、相关说明</p>
-<p>1.三个概念</p>
-<p>（1）谁要进行物理仿真？</p>
-<p>　　物理仿真元素（Dynamic Item）</p>
-<p>（2）执行怎样的物理仿真效果？怎样的动画效果？</p>
-<p>　　物理仿真行为（Dynamic Behavior）</p>
-<p>（3）让物理仿真元素执行具体的物理仿真行为</p>
-<p>　　物理仿真器（Dynamic Animator）</p>
-<p>2.物理仿真元素</p>
-<p>注意：</p>
-<p>不是任何对象都能做物理仿真元素</p>
-<p>不是任何对象都能进行物理仿真</p>
-<p>物理仿真元素要素：</p>
-<p>任何遵守了UIDynamicItem协议的对象</p>
-<p>UIView默认已经遵守了UIDynamicItem协议，因此任何UI控件都能做物理仿真</p>
-<p>UICollectionViewLayoutAttributes类默认也遵守UIDynamicItem协议</p>
-<p>3.物理仿真行为</p>
-<p>（1）UIDynamic提供了以下几种物理仿真行为</p>
-<ul>
-<li>UIGravityBehavior：重力行为</li>
-</ul>
-<p>常用属性以及方法<br>@property (nonatomic, readonly, copy) NSArray* items;</p>
-<p>　　添加到重力行为中的所有物理仿真元素</p>
-<p>@property (readwrite, nonatomic) CGVector gravityDirection;</p>
-<p>　　重力方向（是一个二维向量）</p>
-<p>@property (readwrite, nonatomic) CGFloat angle;</p>
-<p>　　重力方向（是一个角度，以x轴正方向为0°，顺时针正数，逆时针负数）</p>
-<p>@property (readwrite, nonatomic) CGFloat magnitude;</p>
-<p>　　量级（用来控制加速度，1.0代表加速度是1000 points /second²）</p>
-<ul>
-<li>UICollisionBehavior：碰撞行为</li>
-</ul>
-<p>常用属性以及方法<br>@property (nonatomic, readonly, copy) NSArray* boundaryIdentifiers;</p>
-<ul>
-<li>(void)removeAllBoundaries;</li>
-</ul>
-<p>@property (nonatomic, readwrite) BOOL translatesReferenceBoundsIntoBoundary;</p>
-<p>　　是否以参照视图的bounds为边界</p>
-<ul>
-<li>(void)setTranslatesReferenceBoundsIntoBoundaryWithInsets:(UIEdgeInsets)insets;</li>
-</ul>
-<p>　　设置参照视图的bounds为边界，并且设置内边距</p>
-<p>@property (nonatomic, readwrite) UICollisionBehaviorMode collisionMode;</p>
-<p>　　碰撞模式（分为3种，元素碰撞、边界碰撞、全体碰撞）</p>
-<p>@property (nonatomic, assign, readwrite) id <uicollisionbehaviordelegate> collisionDelegate;</uicollisionbehaviordelegate></p>
-<p>　　代理对象（可以监听元素的碰撞过程）</p>
-<ul>
-<li><p>(void)addBoundaryWithIdentifier:(id <nscopying>)identifier forPath:(UIBezierPath*)bezierPath;</nscopying></p>
-</li>
-<li><p>(void)addBoundaryWithIdentifier:(id <nscopying>)identifier fromPoint:(CGPoint)p1 toPoint:(CGPoint)p2;</nscopying></p>
-</li>
-<li><p>(UIBezierPath*)boundaryWithIdentifier:(id <nscopying>)identifier;</nscopying></p>
-</li>
-<li><p>(void)removeBoundaryWithIdentifier:(id <nscopying>)identifier;</nscopying></p>
-</li>
-<li><p>UISnapBehavior：捕捉行为</p>
-</li>
-<li><p>可以让物体迅速冲到某个位置（捕捉位置），捕捉到位置之后会带有一定的震动</p>
-</li>
-<li><p>UISnapBehavior的初始化</p>
-</li>
-<li><ul>
-<li>(instancetype)initWithItem:(id <uidynamicitem>)item snapToPoint:(CGPoint)point;<br>常见属性</uidynamicitem></li>
-</ul>
-</li>
-<li>@property (nonatomic, assign) CGFloat damping;</li>
-<li><p>用于减幅、减震（取值范围是0.0 ~ 1.0，值越大，震动幅度越小）<br>使用注意如果要进行连续的捕捉行为，需要先把前面的捕捉行为从物理仿真器中移除</p>
-</li>
-<li><p>UIPushBehavior：推动行为</p>
-</li>
-<li><p>从一点移到另一点<br>相关属性</p>
-</li>
-<li><p>mode : UIPushBehaviorModeContinuous  //推移模式<br>angle : setAngle  //推移角度<br>magnitude : setMagnitude  //速度   每1个magnigude将会引起100/平方秒的加速度</p>
-</li>
-</ul>
-<p>-</p>
-<ul>
-<li>UIAttachmentBehavior：吸附行为</li>
-</ul>
-<p>吸附行为规定了两种动力item之间或者一个动力item与一个锚点之间的动态连接，默认情况下，两个item之间的吸附点是他们的中点，不过这个是可以设置的。<br>当一个动力item移动的时候，通过跟踪手势或其他输入方式，任何被吸附的动力item都要移动。如果可能，还可以给这些被吸附的动力item设置另外的动力参数和边界。你可以使用length、damping和frequency属性设置吸附行为。</p>
-<p>若要实现动力item的吸附行为，要执行以下两个步骤：<br>1.用一个或者两个item初始化吸附行为, 初始化方法是initWithItem:…<br>2.通过使用addBehavior:method将它添加到动画中去<br>吸附行为还与坐标系统有关，你可以和行为一起用的动力items的类型，取决于你怎么初始化相关的动画。</p>
-<p>你也能在自定义的复合行为中包含吸附行为，这个复合行为要以UIDynamicBehavior对象开始，用addChildBehavior:method添加吸附行为。如果你想吸附行为在每一步动力动画上都很流畅的话，就要实现继承的action方法。</p>
-<p>方法</p>
-<p>初始化和管理吸附行为</p>
-<p>参数：items<br>– initWithItem:attachedToAnchor: 初始化连接动力item的中心和锚点的吸附行为</p>
-<ul>
-<li>(instancetype)initWithItem:(id<uidynamicitem>)item attachedToAnchor:(CGPoint)point<br>参数：item是你要应用吸附行为的动力项，point是吸附行为的锚点，与跟行为相关的动态动画所在在系统坐标有关。<br>返回：初始化的attachment behavior,如果初始化过程出错将会返回nil。<br>该初始化方法的吸附行为的类型是UIAttachmentBehaviorTypeAnchor</uidynamicitem></li>
-</ul>
-<p>– initWithItem:attachedToItem:初始化连接两个动力项中心的吸附行为</p>
-<ul>
-<li>(instancetype)initWithItem:(id<uidynamicitem>)item1 attachedToItem:(id<uidynamicitem>)item2<br>参数：item1第一个被吸附行为连接的动力项，item2第二个被吸附行为连接的动力项<br>返回：初始化的attachment behavior,如果初始化过程出错将会返回nil。<br>该初始化方法的吸附行为的类型是UIAttachmentBehaviorTypeItems</uidynamicitem></uidynamicitem></li>
-</ul>
-<p>– initWithItem:offsetFromCenter:attachedToAnchor:初始化连接动力项中某一点和锚点的吸附行为</p>
-<ul>
-<li>(instancetype)initWithItem:(id<uidynamicitem>)item offsetFromCenter:(UIOffset)p1 attachedToAnchor:(CGPoint)point<br>参数：item要应用吸附行为的动力项，p1相对于item中心的偏移，point是吸附行为的锚点，与跟行为相关的动力动画所在在系统坐标有关。</uidynamicitem></li>
-</ul>
-<p>返回：初始化的attachment behavior,如果初始化过程出错将会返回nil。<br>该初始化方法的吸附行为的类型是UIAttachmentBehaviorTypeAnchor</p>
-<p>– initWithItem:offsetFromCenter:attachedToItem:offsetFromCenter:初始化连接一个动力item中某一点和另一个动力item中某一点的吸附行为</p>
-<ul>
-<li>(instancetype)initWithItem:(id<uidynamicitem>)item1 offsetFromCenter:(UIOffset)p1 attachedToItem:(id<uidynamicitem>)item2 offsetFromCenter:(UIOffset)p2<br>参数：item1第一个被吸附行为连接的动力项，p1相对于item1中心的偏移，item2第二个被吸附行为连接的动力项，p2相对于item2中心的偏移<br>返回：初始化的attachment behavior,如果初始化过程出错将会返回nil。<br>这是为UIAttachmentBehavior类指定的初始化程序。</uidynamicitem></uidynamicitem></li>
-</ul>
-<p>常见属性<br>anchorPoint:<br>UIAttachmentBehaviorTypeAnchor类型的依赖行为的锚点，锚点与行为相关的动力动画的坐标系统有关。<br>@property(readwrite, nonatomic) CGPoint anchorPoint</p>
-<p>attachedBehaviorType:<br>吸附行为的类型<br>@property(readonly, nonatomic) UIAttachmentBehaviorType attachedBehaviorType</p>
-<p>damping:<br>描述吸附行为减弱的阻力大小<br>@property(readwrite, nonatomic) CGFloat damping</p>
-<p>frequency:<br>吸附行为震荡的频率<br>@property(readwrite, nonatomic) CGFloat frequency</p>
-<p>items：<br>与吸附行为相连的动态项目，当吸附行为类型是UIAttachmentBehaviorTypeItems时有2个元素，当吸附行为类型是UIAttachmentBehaviorTypeAnchor时只有一个元素。<br>@property(nonatomic, readonly, copy) NSArray *items</p>
-<p>length：<br>吸附行为中的两个吸附点之间的距离，通常用这个属性来调整吸附的长度，可以创建吸附行为之后调用。系统基于你创建吸附行为的方法来自动初始化这个长度<br>@property(readwrite, nonatomic) CGFloat length</p>
-<ul>
-<li>UIDynamicItemBehavior：动力元素行为</li>
-</ul>
-<p>@property (nonatomic, readonly, copy) NSArray* items;<br>@property (readwrite, nonatomic) CGFloat elasticity; // Usually between 0 (inelastic) and 1 (collide elastically) 弹性系数 在0~1之间<br>@property (readwrite, nonatomic) CGFloat friction; // 0 being no friction between objects slide along each other 摩擦力系数<br>@property (readwrite, nonatomic) CGFloat density; // 1 by default 跟size大小相关，计算物体块的质量。<br>@property (readwrite, nonatomic) CGFloat resistance; // 0: no velocity damping 阻力系数<br>@property (readwrite, nonatomic) CGFloat angularResistance; // 0: no angular velocity damping 旋转阻力<br>@property (readwrite, nonatomic) BOOL allowsRotation; // force an item to never rotate  是否能旋转</p>
-<p>（2）物理仿真行为须知</p>
-<p>上述所有物理仿真行为都继承自UIDynamicBehavior</p>
-<p>所有的UIDynamicBehavior都可以独立进行</p>
-<p>组合使用多种行为时，可以实现一些比较复杂的效果</p>
-<p>4.物理仿真器</p>
-<p>（1）物理仿真器须知</p>
-<p>它可以让物理仿真元素执行物理仿真行为</p>
-<p>它是UIDynamicAnimator类型的对象</p>
-<p>（2）UIDynamicAnimator的初始化</p>
-<ul>
-<li>(instancetype)initWithReferenceView:(UIView *)view;</li>
-</ul>
-<p>view参数：是一个参照视图，表示物理仿真的范围</p>
-<p><a href="http://onevcat.com/2013/06/uikit-dynamics-started/" target="_blank" rel="external">http://onevcat.com/2013/06/uikit-dynamics-started/</a></p>
+          UIDynamic基本认识
+一、简单介绍
+1.什么是UIDynamic?
+UIDynamic是从iOS 7开始引入的一种新技术，隶属于UIKit框架
+可以认为是一种物理引擎，能模拟和仿真现实生活中的物理现象
+如：重力、弹性碰撞等现象
+2.物理引擎的价值
+广泛用于游戏开发，经典成功案例是“愤怒的小鸟”
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/16/uidynamic-z-gu/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1488,40 +890,21 @@ eg：   // 代码块宏定义
       
         
           
-            <p>1.很多需要具备的能力，阅读的书籍和掌握的工具</p>
-<p>反思 如何去做和怎样去做？</p>
-<p>2.最重要的是独立思考的能力</p>
-<p>偏听则明，兼听则暗</p>
-<p>3.锻炼自己对产品的理解能力</p>
-<pre><code>1）对公司定位的理解，和老板投资方有关
+          1.很多需要具备的能力，阅读的书籍和掌握的工具
+反思 如何去做和怎样去做？
+2.最重要的是独立思考的能力
+偏听则明，兼听则暗
+3.锻炼自己对产品的理解能力
+1）对公司定位的理解，和老板投资方有关
 2）对用户定位的理解， 和公司的定位和市场的状况有关
-3）对产品定位的理解， 跟用户的定位和推出产品的初衷有关
-4）对公司研发能力的理解， 包括设计能力，开发能力和运营能力
-5） 对其他部门状况的理解， 包括各部门在做的事情，大家进行的状态
-6） ...
-</code></pre><p>你做出的每个判断都必须基于对产品多方面的理解,而不是对竞品的理解,对市场的理解这些零散的因素.</p>
-<p>4.提高分析和判断能力</p>
-<p> 分析方法:<br>  首先从常识判断我们的用户使用我们的产品有哪几种场景:<br>         1)要聊天的用户<br>         2)要发帖的用户<br>         3)…</p>
-<p>对于每种用户,对应的每种需求:<br>  首先从常识判断我们的用户使用我们的产品有哪几种场景:<br>         1)有没有聊天的界面<br>         2)有没有投票的界面<br>         3)…</p>
-<p>对于每种需求,我们提供的功能又是不同的:<br>         1)根据用户的需求，提供聊天／群聊等功能<br>         2)投票发帖功能<br>         3)…</p>
-<p>产品刚上线，哪种用户最多？哪种用户会逐渐多起来，哪种用户会出现的更晚？这样功能的主次也能分清楚。<br>所以最初的版本，我们主要的精力是放在哪里，第二版上线的功能我们要做什么功能，而定制将是更未来版本的功能，界面的排版也因为功能主次分明，做到心里有数。</p>
-<p>最终结果，看出来界面大同小异，但每个功能从研发的角度都会消耗精力，从用户的角度都会影响体验。如果因为一些小差别，一些可有可无的功能都会成为南辕北辙的错误决定。</p>
-<p>用户调研的意义：  它作为验证的手段，但它不能作为需求的来源。</p>
-<p>在做任何决定的时候都要做到3个字：  讲道理</p>
-<p>要想的比别人远，做的比别人靠谱。</p>
-<p>不断去看别人的产品，但不单单是从UI，从设计，从功能。而是从商业模式，到交互细节，再到视觉风格，循序渐近，去想这么做都是什么道理。</p>
-<p>5.确保良好的沟通能力和表达能力</p>
-<p>如果自己对产品有充分的理解，对各种问题有了解清晰有据的判断，下一步就是把自己的理解和判断和同事们做充分的交流和沟通。<br>一方面是要有提到的情商，怎样让在没有实权的你促进大家完成任务，在协调大家工作时不那么讨厌，另一方面就是让每次沟通都有效率，不耽误时间。</p>
-<p>对于前者：<br>1）始终清楚自己是产品经理，但不是经理，不要生气凌人。<br>2）用道理有据的事实来说服别人，而不是“老板的决定”，“反正和你没关系”这种无聊的说法<br>3）别人遇到困难，不要说“我不管，这是你的事情”，而是主动去理解他的苦难，并尽力帮忙解决，解决不了的一起备选方案<br>4）产品项目组中的任何同事之间有了矛盾，要主动去协调，别在旁边看热闹<br>5）随时让每个人产品线上的人了解全局的进展<br>5）用户的反馈整理后可以周知同时，让大家产生成就感，觉得自己做的事有价值</p>
-<p>对于后者：<br>1）每次讨论问题，不管1V1还是开会，都要明确这次目的。<br>2）描述问题清晰。<br>3）每个问题都形成结论，不要讨论来讨论去，没有结论都是瞎扯。<br>4）不要把任何事都交给别人决定，自己时刻准备提出更多方案和建议<br>5）每次讨论的过程和结论都有记录，可以随时查阅</p>
-<p>6.对产品的责任心</p>
-<p>你最重要的能力就是让正确的事情相继发生。</p>
-<p>严格来说，我和公司是劳动契约，不能被强制加班，岗位是开发，不该去帮别人去想解决方案，我不是老板，公司的各种坑不用我来填。<br>但想要做老板，自己先成为一个优秀的员工，要对任何关于产品相关的事情负责，任何阻碍产品上线的事情都应该去帮助解决，所有对产品产生帮助的事情都应该予以关心。</p>
-<p>如何抉择，决定了作为员工，你选择平庸还是优异。</p>
-<p>7.关于工具的使用<br>1）keynote<br>2）Sketch<br>3） Trello<br>4） 风车</p>
-<p>8.尽力涉猎广泛<br>要懂其他岗位上的一些基本知识，能保证良好的沟通，在考虑需求，设计的时候可以做到心里有数。</p>
+3）对产品定位的理解， 跟用户的定位和推出产品的初
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/16/wo-de/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1613,23 +996,16 @@ eg：   // 代码块宏定义
       
         
           
-            <p>你,是谁?来自哪?<br>你,今年多大?<br>你,现在什么工作?<br>你的优点是什么?<br>你的缺点是什么?<br>你的目标是什么?<br>你的理想是什么?<br>你对自己的人生是如何规划的?</p>
-<p>我来回答以上问题,<br>我叫文静,来自河南。<br>我22岁。<br>我是iOS软件开发工程师。</p>
-<p>我的优点是喜欢沟通,善于观察,天真,活泼,爱笑,热爱生活,喜欢帮助别人,不抱怨,不发牢骚,喜欢和朋友分享自己的好东西,庆幸自己有一颗善良的心,在朋友看来是个满满的正能量的人。<br>我的缺点是常常会遗忘自己所坚持的事情,大懒虫,爱吃,胖,有时会傲娇,依赖别人(生活上),爱睡懒觉,自制力差,没有毅力,没有恒心,三分钟热度,注意力不集中,不能经常反思自己,会和妈妈吵架。有些可以忍的事情不能忍。有点败家,喜欢买很多吃的。对自己好的人会凶。</p>
-<p>我的目标: 第一个是减肥,第二个是提升自己的iOS开发技术水平,第三个就是自己买个房子<br>我的理想: 做最优秀的自己,嫁最优秀的男人<br>我的人生规划:做过设计,再做好技术,然后转产品,再去跑运维。我要从事不同的职业,给予我更多的想法和思维,培养自己的全面性。我一定要拥有自己的一家公司,然后把它推向市场,能够帮助爸妈。买一栋大房子,爸爸妈妈可以和我住一起。</p>
-<p>向身边的朋友询问了自己的三个缺点</p>
-<p>MrL, 朋友,认识3年                           他的看法  以前贪玩,心软,容易相信别人  (工作之后觉得我变成熟有责任感了)<br>我师父,工作伙伴,相处半年。           他的看法  做事容易被干扰,<br>我师兄,大学同学。相处了4年,         他的看法   笨,傻,天真<br>张博,高中同学,认识5年,                   他的看法   爱生气,太在意自己的体重,容易相信人<br>赵丽丽, 大学舍友。相处4年             她的看法   太萌,胸太大,脾气太好。<br>我儿子,网络游戏小伙伴,陪伴3年      他的看法   喜欢炫耀,胸大,<br>我妈妈,养育了我20多年,                  她的看法   任性,爱激动,与世无争,好胜心强<br>我爸爸,呵护了我20多年,                  他的看法   打扮不得体,任性,懒惰</p>
-<p>小学时代的我就学习过”吾日三省吾身”,这句名言出自《论语·学而》。换句话说就是我每天都要一遍一遍地问问自己，有哪些事我还没做到。</p>
-<p>是的,从学生时期到工作时期,每天反思这件事我没做过,有时可能和朋友有点事情上的小争执,但争执后我会很冷静的看待事情,反思自己。有时我会认为自己做错了,但是我没有道歉,朋友也不会放在心上,这点我是没有足够的勇气,需要改正。</p>
-<p>我曾无数次幻想过自己未来的样子,但是我没有那么大的恒心和毅力坚持下去,是的,我为什么要写这篇文章,因为我相信自己,我不想放弃,我不想那些美好的影子都幻化成泡沫,我想做的更好。那么我不努力,不去坚持,我凭什么?<br>不得不说,我的运气很棒,遇到很多贴心和真诚的朋友照顾我的学习工作以及生活,但是运气是一时的,想要得到更完美的事情,唯有自己不停努力的奔跑。</p>
-<p>我不喜欢服从,却又不得不服从。因为现在的我没有能力改变什么,等我真正强大了,我才有资格要求什么。你想的,你要的,不是天给你的,也不是父母赠送给你的,而是你自己为自己争取的。曾经年少时的我,与世无争,对于钱,我会认为有那么重要吗? 讨厌爸妈的斤斤计较,觉得没有必要,我都不在乎钱。而现在我发现,爸妈的斤斤计较是为了让我生活过得更好。对于现在的社会来讲,钱很重要,它可以决定你的生活水平以及你所拥有的能力范围,也可以改变你的身材和容貌,满足你的虚荣心,也可以拯救一个或者更多的生命。没有钱,你步行,赶不上开车的人,你不会拥有高等的服务项目,也开不了高级VIP会员,更别说游戏装备和皮肤了,连上网都不能完成。但,钱不是全部。再多的钱弥补不了心灵上的缺陷,再多的钱,也填补不了知识上的匮乏。</p>
-<p>人生本来就是不平等的。你得到的同时伴随着会失去, 你专注的同时,也会忽略身边的风景。但是不必抱怨,这就是生活,你要去接受和面对它,一件事情的好坏,完全取决你的看它的角度。我有自己的主见,未必对我来说是件好事。我很天真的想过社会上没有坏人,没有人会伤害我,不会有人骗我的。这会是真的吗?现实告诉我,不是。但是我还是会保持这种心态,自欺欺人也好,幼稚也罢。</p>
-<p>我很讨厌自己的懒惰和散漫的态度,但是我却没有做出任何改变,这就是我最大的失败。我想什么,如果我没有完成小小的目标,不能为之坚持下去,我谈什么理想,谈什么人生规划,只不过是个笑话。有些事情,不是靠想的,而是靠做的,你付出了都不一定成功,不付出,更不用说成功了,连失败都不会正眼看你。</p>
-<p>人不能没有批评和自我批评,那样一个人就不能进步。超级喜欢毛爷爷的这句话,以后希望他也一直会伴我成长。</p>
-<p>以后每天我都要写一篇文章,反思自己,为了更好的成长,我不完美,也不追求完美。人生要很多选择路,我要选择对的那条路,一直走下去。希望自己可以保持一颗单纯而又热爱生活的心,努力奋斗下去.不管未来什么样,我猜那时我一定很优秀。</p>
-<p>还有一句,感谢那些一直陪伴在我身边的你们,谢谢你们的对我的保护和细心照顾,我相信不管发生什么,我们都会陪伴在彼此身边,我爱你们。</p>
+          你,是谁?来自哪?你,今年多大?你,现在什么工作?你的优点是什么?你的缺点是什么?你的目标是什么?你的理想是什么?你对自己的人生是如何规划的?
+我来回答以上问题,我叫文静,来自河南。我22岁。我是iOS软件开发工程师。
+我的优点是喜欢沟通,善于观察,天真,活泼,爱笑,热爱生活,喜欢帮助别人,不抱怨,
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/16/zi-wo-fan-si/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1721,19 +1097,18 @@ eg：   // 代码块宏定义
       
         
           
-            <p>一年12个月</p>
-<p>100w/12 = 83333.33333333333<br>每个月我需要85k</p>
-<p>2年24个月<br>100w/24 = 41666.666666666667<br>每个月我需要42k</p>
-<p>3年36个月<br>100w/36 = 27777.7777777777778<br>每个月我需要28k</p>
-<p>4年48个月<br>100w/48 = 20833.3333333333333<br>每个月我需要21k</p>
-<p>5年60个月<br>100w/60 = 16666.6666666666667<br>每个月我需要17k</p>
-<p>6年72个月<br>100w/72 = 13888.88888888888889<br>每个月我需要14k</p>
-<p>7年84个月<br>100w/84 = 11904.76190476190476<br>每个月我需要12K</p>
-<p>8年96个月<br>100w/96 = 10416.66666666666667<br>每个月我需要11k</p>
-<p>如果未来3年我的平均工资为25k<br>3<em>12</em>25 = 900k</p>
-<p>如果未来5年我的平均工资为30K<br>5<em>12</em>30 = 1800k</p>
+          一年12个月
+100w/12 = 83333.33333333333每个月我需要85k
+2年24个月100w/24 = 41666.666666666667每个月我需要42k
+3年36个月100w/36 = 27777.7777777777778每个月我需要28k
+4年48个月100w/48 = 2
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/16/100wde-li-cai-mu-biao/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1825,38 +1200,15 @@ eg：   // 代码块宏定义
       
         
           
-            <p>The man who has no imagination, further efforts will not have the flying wings<br>没有想象力的人,再努力也无法拥有飞行的双翼。</p>
-<p>Success stories can give you inspiration and motivation, but also to your ideas and creativity to bring interference.<br>成功人士的事迹可以带给你灵感和动力,也会对你的思想和创造力带来干扰。</p>
-<p>Right and wrong is not absolute, but relative.<br>对与错不是绝对的,而是相对的。</p>
-<p>I am a paranoid.<br>我是一个偏执狂。</p>
-<p>If you let me tell you that I think the 3 greatest men in the world, one is my father, the other is my mother, the last one is me.<br>如果让我说出自己认为世界上最伟大的3个人,一个人是我的父亲,另一个便是我的母亲，最后一个就是我。</p>
-<p>No matter what I do in the future, I must insist on doing their own, do not lose heart<br>无论未来我从事哪方面的职业,我都必须坚持做好自己,勿失初心。</p>
-<p>Read every good blog, I need to extract the essence of the absorption, for the use of.<br>阅读每一篇优秀的博客,我需要提取精华部分加以吸收,为之所用。</p>
-<p>Your most important ability is to make the right things happen to you.<br>你最重要的能力就是让正确的事情相继发生在自己的身上。</p>
-<p>Want to be far more than others, do more than others.<br>要想的比别人远，做的比别人靠谱。</p>
-<p>Instead of looking at others, it is better to enrich yourself.<br>与其仰望别人,不如充实自己。</p>
-<p>If you don’t want to do one thing, then don’t start.If you start, even if the sky is falling will make it.If you decide to do something, then begin to do;Don’t be anyone, anything.<br>如果你不打算做一件事情,那就别开始。如果你开始了，即使天塌下来也要把它做成。如果你决定做某事，那就动手去做；不要受任何人，任何事的干扰。</p>
-<p>If I want to help them, I first I want to have the energy, the more the better.To be taken, however, will have to, I have to help them.<br>如果我希望对他们有所帮助，我首先自己要拥有能量，多多益善。然而，欲有所取，必有所予，我必须对他们有所帮助。</p>
-<p>Control yourself, learn to master yourself.<br>懂得控制自我，学会主宰自己。</p>
-<p>Don’t completely by his own feelings rather than make their own wisdom.<br>不要完全被自己的感情而不是让自己的智慧左右。</p>
-<p>With growth, passion accompanied by action, insight with opportunities.<br>热情伴随着成长，激情伴随着行动，洞察力伴随着机遇。</p>
-<p>Who can change yourself, improve yourself, reshape themselves, control environment, grasp the fate.<br>人可以改变自己，提高自己，重塑自己，掌控环境，把握命运。</p>
-<p>Action is thought in the blooming flowers, the situation is the result of the action.<br>行动是思想盛开的鲜花,境遇是行动的结果。</p>
-<p>Learn how to close your door, don’t let any obvious benefits can’t give you the future and trying to allowed into things, to enter your heart, your work, your world.<br>学会关上你的大门,不要让任何不能给你未来带来明显的益处而又试图获准进入的东西,进入你的心灵、你的工作、你的世界。</p>
-<p>All successful, is through the mind is focused on tangible goals.<br>所有的成功,都是通过把意念恒久地集中于看得见的目标而实现的。</p>
-<p>Is necessary to the happiness of all the good deeds.<br>一切幸福的必要条件是善行义举。</p>
-<p>Active thoughts bring you power, thinking about the source of the deeper, the greater the power of its projection.<br>活跃的思想带给你力量,思考的来源越深,它投射的力量就越大。</p>
-<p>To understand their strengths, and then have challenge of courage, to be confident to do in the end.As long as scientifically grasp force of creative thinking, any goals in your life can be perfect.<br>先了解自身的力量，然后再有挑战的勇气，最后要有去做的信心。只要科学地把握思想的创造性力量，生活中的任何目标都可以得到完美的实现。</p>
-<p>I think, therefore I am.The person’s thinking is infinite, and the creativity is the infinite.<br>我思故我在。人的思考力是无限的，因而创造力也是无限的。</p>
-<p>Perseverance efforts, helps to develop their own ingenuity and enterprising spirit.<br>坚持不懈的精神努力,有助于开发自己的独创性和进取精神。</p>
-<p>Spiritual growth is the victory in the process of self from low level to high-level.<br>心灵的成长是自我从低层向高层迈进过程中的胜利。</p>
-<p>Every time you get victory, you overcome every obstacle, will make you full of more confidence to their own power.In this way, you will have more power to win more.<br>你获得的每一次胜利，你跨越的每一个障碍，都会使你对自己的力量充满更大的自信。这样，你就会拥有更大力量去赢得更多的胜利。</p>
-<p>If you want to eliminate fear, then focus your mind on the courage.If you want to eliminate the shortage, then put the focus on the rich.If you want to eliminate the disease, the focus on health.<br>如果你想消除恐惧，那就把意念集中在勇气上。如果你想消除匮乏，那就把意念集中在富足上。如果你想消除疾病，那就把意念集中在健康上。</p>
-<p>Always focus your mind on your goals, no goals as a fait accompli.<br>永远把意念集中在你的目标上，把没有实现的目标当作既成事实。</p>
-<p>To have people thought, and thought is his wealth.<br>能够拥有思想的人，思想就是他的财富。</p>
-<p>No matter how difficult, no matter how many obstacles, no matter what person involved. For me, the only thing I need to deal with is me. The only thing I need to do is tell myself, I want the results will be implemented.<br>不管有多么困难,不管有多少坎坷, 不管涉及什么人.对我来说,我唯一需要对付的就是我自己.我唯一需要做的就是告诉我自己,我想要的结果一定会实现.</p>
+          The man who has no imagination, further efforts will not have the flying wings没有想象力的人,再努力也无法拥有飞行的双翼。
+Success stories can give you inspiration and moti
+          ...
 
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/02/16/an-ordinary-girls-sayings/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
